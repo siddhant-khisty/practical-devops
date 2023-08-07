@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bnb-backend-deploy
+  name: nginx
   labels:
-    app: bnb-backend-deploy
+    app: nginx
   namespace: demo
 spec:
   ## Set to 5 for start of lab
   replicas: 5
   selector:
     matchLabels:
-      env: bnb-test
+      env: demo
   progressDeadlineSeconds: 300
   minReadySeconds: 10
   strategy:
@@ -21,11 +21,11 @@ spec:
   template:
     metadata:
       labels:
-        env: bnb-test
+        env: demo
     spec:
       containers:
-      - name: bnb-backend-ctr
-        image: kaiwalyakoparkar/test-server:1.0
+      - name: nginx-demo
+        image: nginx
         ports:
         - containerPort: 5000
 
@@ -35,12 +35,12 @@ kind: Service
 metadata:
   name: backend-service
   labels:
-    app: bnb-backend-deploy
+    app: nginx 
   namespace: demo
 spec:
-  type: ClusterIP
+  type: nodePort 
   selector:
-    app: bnb-backend-deploy
+    app: nginx
   ports:
   - port: 5000
     targetPort: 5000

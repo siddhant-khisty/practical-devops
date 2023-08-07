@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bnb-frontend-deploy
+  name: golang 
   labels:
-    app: bnb-frontend-deploy
+    app: golang  
   namespace: demo
 spec:
   ## Set to 5 for start of lab
   replicas: 5
   selector:
     matchLabels:
-      env: bnb-test
+      env: golang
   progressDeadlineSeconds: 300
   minReadySeconds: 10
   strategy:
@@ -21,11 +21,11 @@ spec:
   template:
     metadata:
       labels:
-        env: bnb-test
+        env: golang 
     spec:
       containers:
-      - name: bnb-frontend-ctr
-        image: kaiwalyakoparkar/test-client:1.0
+      - name: golang-container 
+        image: golang 
         ports:
         - containerPort: 3000
 
@@ -33,9 +33,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: golang-service
   labels:
-    app: bnb-frontend-deploy
+    app: golang 
   namespace: demo
 spec:
   type: ClusterIP
