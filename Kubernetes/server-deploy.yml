@@ -38,7 +38,7 @@ metadata:
     app: nginx 
   namespace: demo
 spec:
-  type: nodePort 
+  type: ClusterIP 
   selector:
     app: nginx
   ports:
